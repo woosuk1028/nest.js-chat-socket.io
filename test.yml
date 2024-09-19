@@ -1,0 +1,19 @@
+config:
+  target: "ws://158.247.226.234:3000/chat" # 서버 주소 및 네임스페이스
+  phases:
+    - duration: 60
+      arrivalRate: 50
+  ws:
+    # 웹소켓 옵션 설정 가능
+scenarios:
+  - engine: "socketio" # 커스텀 엔진 사용 시 지정
+    flow:
+      - emit:
+          channel: "setName"
+          data: { name: "TestUser" }
+      - think: 1
+      - emit:
+          channel: "message"
+          data: { id: "{{ clientId }}", message: "Hello, World!" }
+      - think: 1
+     
